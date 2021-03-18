@@ -18,9 +18,15 @@ def CreateToDoList():
     SaveToDoList(toDoListObject)
 
 def SaveToDoList(*ToDoList):
-    with open("C:\\toDoListData.txt", "a") as fichier:
+    with open('C:\toDoListData.txt', "a") as fichier:
         mon_pickler = pickle.Pickler(fichier)
         mon_pickler.dump(ToDoList)
+
+def ReadToDoList():
+    with open('C:\\toDoListData.txt', 'rb') as fichier:
+        mon_depickler = pickle.Unpickler(fichier)
+        dataRecuv = mon_depickler.load()
+        print("\n Tache : {}".format(dataRecuv))
 
 def UpdateToDOList():
     pass
