@@ -1,3 +1,7 @@
 #coding:utf-8
+import os
+import ToolsData.fonctionPackage as fonc
+import ToolsData.myClassData as myVar
+import ToolsData.messageAfficher as message
 
-print("Ceci est juste une maniére de tester ce que j'ecris dans Python Git  ")
+message.MessageAcceuil()
