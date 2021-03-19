@@ -1,4 +1,5 @@
 #coding:utf-8
+import datetime
 
 class ToDoList:
     id = 0
@@ -7,6 +8,6 @@ class ToDoList:
         self.id += 1 
         self.nomToDo = "List"
         self.libelleToDo = "Ceci est une tâche"
-        self.dateCreate
-        self.dateRunHeure
+        self.dateCreate = datetime.date.today()
+        self.dateRunHeure = datetime.date.today()
 
