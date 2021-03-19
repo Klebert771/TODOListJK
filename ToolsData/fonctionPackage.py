@@ -4,10 +4,10 @@ import messageAfficher as message
 import datetime
 import pickle
 
+toDoListObject = data.ToDoList()
 
 def CreateToDoList():
     message.CreationListToDoList()
-    toDoListObject = data.ToDoList()
     toDoListObject.nomToDo = input("Entrez un titre à votre tâche")
     toDoListObject.nomToDo = str(toDoListObject.nomToDo)
     toDoListObject.libelleToDo = input("Entrez un Libellez à votre tâche")
@@ -17,28 +17,82 @@ def CreateToDoList():
     message.AcceptSave()
     SaveToDoList(toDoListObject)
 
-def SaveToDoList(*ToDoList):
-    with open('C:\toDoListData.txt', "a") as fichier:
-        mon_pickler = pickle.Pickler(fichier)
-        mon_pickler.dump(ToDoList)
+def SaveToDoList(toDoListObject):
+    ToDoListSave = open("C:\toDoListData.txt", "a")
+    ListeDonner = toDoListObject.id,"-",toDoListObject.nomToDo,"-",toDoListObject.libelleToDo,"-",toDoListObject.dateCreate,"-",toDoListObject.dateRunHeure
+    try:
+        ToDoListSave.write(ListeDonner)
+    except:
+        print("Enregistrement Echouer")
+    ToDoListSave.close()
 
 def ReadToDoList():
-    with open('C:\\toDoListData.txt', 'rb') as fichier:
-        mon_depickler = pickle.Unpickler(fichier)
-        dataRecuv = mon_depickler.load()
-        print("\n Tache : {}".format(dataRecuv))
+    ToDoListSave = open("C:\toDoListData.txt", "r")
+    Ligne = ToDoListSave.readlines()
+    N_lignes = len(Ligne)
+    print("Il y'a {} tâche(s)".format(N_lignes))
+    if N_lignes == 0:
+        print("Il n'y'a aucune tache disponible")
+    else:
+        for line in ToDoListSave:
+            print(line)
 
-def UpdateToDOList():
-    pass
+    ToDoListSave.close()
 
-def DeleteTodoList():
-    pass
+def UpdateToDOList(identifiant):
+    ToDoListSave = open("C:\toDoListData.txt", "a")
+    Ligne = ToDoListSave.readlines()
+    trouver = False
+    for line in Ligne:
+        if identifiant in line:
+            try:
+                toDoListObject.nomToDo = input("Entrez un titre à votre tâche")
+                toDoListObject.nomToDo = str(toDoListObject.nomToDo)
+                toDoListObject.libelleToDo = input("Entrez un Libellez à votre tâche")
+                toDoListObject.libelleToDo = str(toDoListObject.libelleToDo)
+                toDoListObject.dateCreate = datetime.date.today()
+                toDoListObject.dateRunHeure =  GetDateToDoList()
+                message.AcceptSave()
+                SaveToDoList(toDoListObject)
+                trouver = True
+            except:
+                print("Erreur de lors de la modification")
+    if trouver:
+        print("Modification effectuer avec succes")
+    else:
+        print("Aucun tache avec cette indice n'a ete retrouver")
 
-def PrintToDoList():
-    pass
+def DeleteTodoList(identifiant):
+    ToDoListSave = open("C:\toDoListData.txt", "a")
+    Ligne = ToDoListSave.readlines()
+    supprimer = False
+    for line in ToDoListSave:
+        if identifiant in line:
+            try:
+                ToDoListSave.write("\r\n".join(Ligne))
+                supprimer = True
+            except:
+                print("Erreur de lors de la suppression")
+    if supprimer:
+        print("Suppression effectuer avec succes")
+    else:
+        print("Aucun tache avec cette indice n'a ete retrouver")
 
-def SearchToDoList():
-    pass
+def SearchToDoList(identifiant):
+    ToDoListSave = open("C:\toDoListData.txt", "r")
+    Ligne = ToDoListSave.readlines()
+    trouver = False
+    for line in Ligne:
+        if identifiant in Ligne:
+            try:
+                print(line)
+                trouver = True
+            except:
+                print("Erreur de lors de la recherche")
+    if trouver:
+        print("recherche effectuer avec succes")
+    else:
+        print("Aucun tache avec cette indice n'a ete retrouver")
 
 def GetDateToDoList():
     A = input("Entrez l'année : ")
