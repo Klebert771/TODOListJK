@@ -1,15 +1,15 @@
 #coding:utf-8
 import os
-import ToolsData.fonctionPackage as fonc
-import ToolsData.myClassData as data
-import ToolsData.messageAfficher as message
+import myClassData as ToolsData #pylint: disable=import-error
+import messageAfficher as message #pylint: disable=import-error
+import fonctionPackage as fonc #pylint: disable=import-error
 
 message.MessageAcceuil()
 
-reponse = False
-while reponse:
+reponse = True
+while reponse == True:
     print("Bonsoir qu'es ce que vous voulez faire ?")
-    choix = input("1 --> Ajoutez une tache \t 2 --> Affichez les tache \t 3 --> Supprimer une tache \t 4 --> Modifier une tache ")
+    choix = input("1 --> Ajoutez une tache \t 2 --> Affichez les tache \n3 --> Supprimer une tache \t 4 --> Modifier une tache \n*****Votre Choix : ")
     choix = int(choix)
     try:
         if choix != 1 and choix != 2 and choix != 3 and choix != 4:
@@ -21,7 +21,7 @@ while reponse:
                 fonc.ReadToDoList()
             elif choix == 3:
                 fonc.ReadToDoList()
-                a = input("Print entrez le numero de la tache a supprimer")
+                a = input("Print entrez le numero de la tache a supprimer : ")
                 a = int(a)
                 fonc.DeleteTodoList(a)
             else:
@@ -31,5 +31,7 @@ while reponse:
                 fonc.UpdateToDOList(a)
     except ValueError:
         print("Erreur : ")
+
+        
 
 

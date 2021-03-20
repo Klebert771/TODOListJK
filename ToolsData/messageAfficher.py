@@ -3,8 +3,9 @@
 import string
 
 def MessageAcceuil():
-    print("************************************")
+    print("*********************************************************")
     print("***Bienvenu dans notre programme de Gestion des tâches***")
+    print("*********************************************************")
 
 def CreationListToDoList():
     print("Ceci est le message de creation d'une liste,")
